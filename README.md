@@ -9,7 +9,7 @@
 ## ローカル確認
 
 ```bash
-npx serve .
+npx serve docs
 # → http://localhost:3000
 ```
 
@@ -17,7 +17,7 @@ npx serve .
 
 ## テーマの追加方法
 
-`themes.json` を直接編集する。
+`docs/themes.json` を直接編集する。
 
 ```json
 {
@@ -50,7 +50,7 @@ npx serve .
 3. 以下の手順でテーマを追加・更新する
 
 ```bash
-git add themes.json
+git add docs/themes.json
 git commit -m "add theme: <テーマの概要>"
 git push
 ```

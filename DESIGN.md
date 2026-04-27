@@ -31,8 +31,9 @@ SNSグループ等でテーマを募集し、`themes.json` を手動編集して
 
 ```
 english-theme-randomizer/
-├── index.html          # メインUI（1ファイル完結）
-├── themes.json         # テーマデータ（唯一の編集対象）
+├── docs/
+│   ├── index.html      # メインUI（1ファイル完結）
+│   └── themes.json     # テーマデータ（唯一の編集対象）
 ├── README.md           # 運用手順
 └── .github/
     └── workflows/
