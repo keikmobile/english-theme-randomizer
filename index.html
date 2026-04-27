@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎲 English Theme Randomizer</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #1e293b;
+      --subtext: #64748b;
+      --border: #e2e8f0;
+      --badge-bg: #f1f5f9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--subtext);
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Theme card ── */
+    #card {
+      background: var(--card-bg);
+      border-radius: 1.25rem;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 660px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 1.25rem;
+      transition: opacity 0.15s ease;
+    }
+
+    #card.fade {
+      opacity: 0;
+    }
+
+    #theme-text {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--text);
+    }
+
+    #theme-text.no-match {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--subtext);
+    }
+
+    #badges {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .badge {
+      background: var(--badge-bg);
+      color: var(--subtext);
+      border-radius: 999px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+
+    /* ── Next button ── */
+    #btn-next {
+      margin-top: 2.25rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 1rem 2.75rem;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+      box-shadow: 0 4px 14px rgba(79,70,229,0.35);
+    }
+
+    #btn-next:hover {
+      background: var(--primary-hover);
+    }
+
+    #btn-next:active {
+      transform: scale(0.97);
+    }
+
+    /* ── Filter section ── */
+    #filter-section {
+      margin-top: 2.75rem;
+      width: 100%;
+      max-width: 660px;
+    }
+
+    #filter-toggle {
+      background: none;
+      border: none;
+      color: var(--subtext);
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0;
+      border-bottom: 1px solid var(--border);
+      width: 100%;
+    }
+
+    #filter-toggle:hover {
+      color: var(--text);
+    }
+
+    #filter-arrow {
+      transition: transform 0.2s ease;
+      display: inline-block;
+    }
+
+    #filter-body {
+      display: none;
+      padding: 1.25rem 0 0.5rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    #filter-body.open {
+      display: flex;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-size: 0.875rem;
+      color: var(--subtext);
+      white-space: nowrap;
+    }
+
+    .filter-group select {
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.875rem;
+      color: var(--text);
+      background: var(--card-bg);
+      cursor: pointer;
+    }
+
+    #count {
+      font-size: 0.85rem;
+      color: var(--subtext);
+      margin-left: auto;
+    }
+
+    @media (max-width: 480px) {
+      #theme-text {
+        font-size: 1.8rem;
+      }
+
+      #btn-next {
+        font-size: 1.2rem;
+        padding: 0.9rem 2rem;
+      }
+
+      #count {
+        margin-left: 0;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎲 English Theme Randomizer</h1>
+  </header>
+
+  <div id="card">
+    <div id="theme-text">Loading...</div>
+    <div id="badges"></div>
+  </div>
+
+  <button id="btn-next" onclick="showRandom()">🎲 Next Theme</button>
+
+  <div id="filter-section">
+    <button id="filter-toggle" onclick="toggleFilter()" aria-expanded="false">
+      <span id="filter-arrow">▶</span> Filter
+    </button>
+    <div id="filter-body">
+      <div class="filter-group">
+        <label for="cat">Category</label>
+        <select id="cat" onchange="onFilterChange()">
+          <option value="all">All</option>
+          <option value="travel">travel</option>
+          <option value="lifestyle">lifestyle</option>
+          <option value="culture">culture</option>
+          <option value="work">work</option>
+          <option value="personal">personal</option>
+          <option value="society">society</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="diff">Level</label>
+        <select id="diff" onchange="onFilterChange()">
+          <option value="all">All</option>
+          <option value="beginner">beginner</option>
+          <option value="intermediate">intermediate</option>
+          <option value="advanced">advanced</option>
+        </select>
+      </div>
+      <span id="count"></span>
+    </div>
+  </div>
+
+  <script>
+    const HISTORY_SIZE = 5;
+    let recentIds = [];
+    let allThemes = [];
+
+    function getFilteredThemes() {
+      const cat = document.getElementById('cat').value;
+      const diff = document.getElementById('diff').value;
+      return allThemes.filter(t =>
+        (cat === 'all' || t.category === cat) &&
+        (diff === 'all' || t.difficulty === diff)
+      );
+    }
+
+    function getRandomTheme(themes) {
+      const pool = themes.filter(t => !recentIds.includes(t.id));
+      const candidates = pool.length > 0 ? pool : themes;
+      const picked = candidates[Math.floor(Math.random() * candidates.length)];
+      recentIds.push(picked.id);
+      if (recentIds.length > HISTORY_SIZE) recentIds.shift();
+      return picked;
+    }
+
+    function renderCard(theme) {
+      const card = document.getElementById('card');
+      card.classList.add('fade');
+      setTimeout(() => {
+        document.getElementById('theme-text').textContent = theme.theme;
+        document.getElementById('theme-text').className = '';
+        document.getElementById('badges').innerHTML =
+          `<span class="badge">${theme.category}</span><span class="badge">${theme.difficulty}</span>`;
+        card.classList.remove('fade');
+      }, 150);
+    }
+
+    function showRandom() {
+      const filtered = getFilteredThemes();
+      updateCount(filtered.length);
+      if (filtered.length === 0) {
+        const textEl = document.getElementById('theme-text');
+        textEl.textContent = 'No themes match the current filter.';
+        textEl.className = 'no-match';
+        document.getElementById('badges').innerHTML = '';
+        return;
+      }
+      renderCard(getRandomTheme(filtered));
+    }
+
+    function updateCount(n) {
+      document.getElementById('count').textContent = `${n} theme${n !== 1 ? 's' : ''} available`;
+    }
+
+    function onFilterChange() {
+      recentIds = [];
+      showRandom();
+    }
+
+    function toggleFilter() {
+      const body = document.getElementById('filter-body');
+      const arrow = document.getElementById('filter-arrow');
+      const toggle = document.getElementById('filter-toggle');
+      const isOpen = body.classList.toggle('open');
+      arrow.style.transform = isOpen ? 'rotate(90deg)' : '';
+      toggle.setAttribute('aria-expanded', isOpen);
+    }
+
+    async function init() {
+      try {
+        allThemes = await fetch('themes.json').then(r => r.json());
+        showRandom();
+      } catch (e) {
+        document.getElementById('theme-text').textContent = 'Failed to load themes.json';
+        document.getElementById('theme-text').className = 'no-match';
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

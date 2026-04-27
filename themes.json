@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "theme": "A trip that changed how you see the world",
+    "category": "travel",
+    "difficulty": "intermediate",
+    "added": "2026-04"
+  },
+  {
+    "id": 2,
+    "theme": "A habit you've tried to build (and failed)",
+    "category": "lifestyle",
+    "difficulty": "beginner",
+    "added": "2026-04"
+  },
+  {
+    "id": 3,
+    "theme": "A tradition in your family or culture that surprises foreigners",
+    "category": "culture",
+    "difficulty": "intermediate",
+    "added": "2026-04"
+  },
+  {
+    "id": 4,
+    "theme": "The best and worst parts of working remotely",
+    "category": "work",
+    "difficulty": "beginner",
+    "added": "2026-04"
+  },
+  {
+    "id": 5,
+    "theme": "A moment when you felt truly proud of yourself",
+    "category": "personal",
+    "difficulty": "beginner",
+    "added": "2026-04"
+  },
+  {
+    "id": 6,
+    "theme": "How social media is changing the way we form friendships",
+    "category": "society",
+    "difficulty": "advanced",
+    "added": "2026-04"
+  },
+  {
+    "id": 7,
+    "theme": "A place you'd love to live for one year — and why",
+    "category": "travel",
+    "difficulty": "beginner",
+    "added": "2026-04"
+  },
+  {
+    "id": 8,
+    "theme": "The skills that will matter most in the next 10 years",
+    "category": "work",
+    "difficulty": "advanced",
+    "added": "2026-04"
+  },
+  {
+    "id": 9,
+    "theme": "How food connects people across different cultures",
+    "category": "culture",
+    "difficulty": "intermediate",
+    "added": "2026-04"
+  },
+  {
+    "id": 10,
+    "theme": "What does 'a good life' look like to you?",
+    "category": "personal",
+    "difficulty": "advanced",
+    "added": "2026-04"
+  }
+]
